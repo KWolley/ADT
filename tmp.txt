@@ -1,0 +1,63 @@
+tmp
+// insert a given thing with a given priorirty
+void blind_insert(pq* &queue, string text, float priority) {
+  // if there is a tie in the priority - the item added will
+  // be added at the end of the items with the same priority
+  if (queue == NULL){
+    return;
+  }
+  pq* cursor = queue;
+  if (cursor -> next == NULL){
+    cursor -> next = NULL;
+    cursor -> text = text;
+    cursor -> priority = priority;
+    return;
+  }
+  while (cursor -> next != NULL){
+    cursor -> next;
+  }
+
+  pq* extend = init_priority_queue();
+  cursor -> next = extend;
+  extend -> text = text;
+  extend -> priority = priority;
+  return;
+}
+
+bool clean_pq(pq* queue, bool i){
+  pq* c = queue;
+  pq* c_next = queue -> next;
+  cout<< "c" << c ->priority << "cnext" << c_next ->priority <<endl;
+  while (c_next != NULL){
+    if (c -> priority > c_next -> priority){
+      // swap 
+      // create temperary place to hold info
+      pq* tmp = c;
+      tmp -> priority = c->priority;
+      tmp -> text = c -> text;
+
+      c ->priority = c_next ->priority;
+      c ->text = c_next ->text;
+
+      c_next ->text = tmp -> text;
+      c_next ->priority = c_next ->  priority;
+      i = false;
+      cout<<"decision"<<i<<endl;
+    } else{
+      i = true;
+    }
+    c = c -> next;
+    c_next = c_next -> next;
+  }
+  return i;
+}
+  
+  // inster new text at end of list
+  blind_insert(queue,text,priority);
+  // clean list
+  bool i = false;
+  while (i == false){
+    cout<< "enter while loop" << endl;
+    i = clean_pq(queue,i);
+  }
+  return;
